@@ -1,0 +1,50 @@
+---
+title: "Star Wars data"
+author: "Seth Green"
+date: "2/28/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+This is just some fake data to show where to put things. Just showing some of the demo stuff from [dplyr](https://dplyr.tidyverse.org/#usage) so that we have something to render.
+
+**The idea is to put each analysis question in it's own repo.** This is an analysis of the question: "who is the biggest droid?"
+
+```{r, message = F}
+# first you need to install these packages
+library(tidyverse)
+library(fs)
+```
+
+## Analysis
+
+
+```{r cars}
+df <- starwars %>% filter(species == "Droid")
+df
+```
+
+```{r}
+
+df %>%
+  mutate(name, bmi = mass / ((height / 100)  ^ 2)) %>%
+  select(name:mass, bmi, species) %>%
+  ggplot(aes(x = height, y = log(bmi))) +
+    geom_point(aes(size = log(mass))) +
+    geom_text(aes(label = name), hjust = 1, vjust = 0)
+```
+
+
+```{r}
+
+df %>%
+  arrange(mass) %>%
+  select(name, height, mass) %>%
+  knitr::kable()
+
+```
